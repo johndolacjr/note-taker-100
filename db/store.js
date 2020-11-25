@@ -25,7 +25,7 @@ class Store {
         return parsedNotes;
         })
     }
-// example of destructuring
+// example of destructuring -- im taking the title, text string and destructuring it to add a unique id. 
     addNote(note) {
         const {title, text} = note;
         const newNote = {title, text, id: uuidv1()};
@@ -36,6 +36,12 @@ class Store {
     } 
 
 // delete note is going to take in an id and use a .filter to only keep the notes that do not include that id. 
+
+    deleteNote(id) {
+        return this.getNotes()
+        .then(notes => notes.filter(note => note.id !== id))
+        .then(updatedNotes => this.write(updatedNotes));
+    }
 
 } 
 
