@@ -1,7 +1,8 @@
 // packages we are using 
 const fs = require("fs"); 
 const util = require("util");
-// returns a unique ID for our returns 
+// returns a unique ID for our returns
+
 const uuidv1 = require("uuid/v1");
 
 // creates a promified version of fs.readfile and writefile
@@ -42,7 +43,6 @@ class Store {
         .then(notes => notes.filter(note => note.id !== id))
         .then(updatedNotes => this.write(updatedNotes));
     }
-
 } 
 
 module.exports = new Store();
