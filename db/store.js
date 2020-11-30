@@ -1,13 +1,14 @@
 // packages we are using 
 const fs = require("fs"); 
 const util = require("util");
+
 // returns a unique ID for our returns
+    // const uuidv1 = require("uuid/v1");
+const { v1: uuidv1 } = require('uuid');
 
-const uuidv1 = require("uuid/v1");
-
-// creates a promified version of fs.readfile and writefile
-const readFileAsync = util.promisify(fs.readfile); 
-const writeFileAsync = util.promisify(fs.writefile);
+// creates a promisified version of fs.readfile and writefile
+// const readFileAsync = util.promisify(fs.readfile); 
+// const writeFileAsync = util.promisify(fs.writefile);
 
 class Store {
     read() {
@@ -31,9 +32,9 @@ class Store {
         const {title, text} = note;
         const newNote = {title, text, id: uuidv1()};
         return this.getNotes()
-        .then(notes => [...notes, newNote]);
-        .then(updatedNotes => this.write(updatedNotes));
-        .then(() => newNote);
+        .then(notes => [...notes, newNote])
+        .then(updatedNotes => this.write(updatedNotes))
+        .then(() => newNote)
     } 
 
 // delete note is going to take in an id and use a .filter to only keep the notes that do not include that id. 
@@ -41,11 +42,11 @@ class Store {
     deleteNote(id) {
         return this.getNotes()
         .then(notes => notes.filter(note => note.id !== id))
-        .then(updatedNotes => this.write(updatedNotes));
+        .then(updatedNotes => this.write(updatedNotes))
     }
 } 
 
-module.exports = new Store();
+module.exports = new Store ();
 
 
 

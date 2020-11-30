@@ -7,14 +7,13 @@ var storeData = require("../db/store.js");
 //Routes
 
 module.exports = function(app) {
-//Get -- __dir, res.sendfile  in express, path is a node package - install npm (path)
-// dir names  
+  
   app.get("/api/index", function(req, res) {
-    res.json(db.json);
+    res.json(db);
   });
 
   app.get("/api/notes", function(req, res) {
-    res.json(store.js);
+    res.json(store);
   });
 
   // API POST Requests
@@ -25,29 +24,44 @@ module.exports = function(app) {
   // Then the server saves the data to the tableData array)
   // ---------------------------------------------------------------------------
 
-  app.post("/api/tables", function(req, res) {
-    // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
-    // It will do this by sending out the value "true" have a table
-    // req.body is available since we're using the body parsing middleware
-    if (tableData.length < 5) {
-      tableData.push(req.body);
-      res.json(true);
-    }
-    else {
-      waitListData.push(req.body);
-      res.json(false);
-    }
-  });
+//   app.post("/api/notes", function(req, res) {
+//     // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
+//     // It will do this by sending out the value "true" have a table
+//     // req.body is available since we're using the body parsing middleware
+// //     if (tableData.length < 5) {
+// //       tableData.push(req.body);
+// //       res.json(true);
+// //     }
+// //     else {
+// //       waitListData.push(req.body);
+// //       res.json(false);
+// //     }
+//   });
 
   // ---------------------------------------------------------------------------
   // I added this below code so you could clear out the table while working with the functionality.
-  // Don"t worry about it!
+ 
+  app.post('/api/index', (req, res) => { 
+  res.send("POST Request Called") 
+}); 
 
-  app.post("/api/clear", function(req, res) {
-    // Empty out the arrays of data
-    tableData.length = 0;
-    waitListData.length = 0;
+app.post('/api/notes', (req, res) => { 
+  res.send("POST Request Called") 
+}); 
 
-    res.json({ ok: true });
-  });
+  app.delete('/api/index', (req, res) => { 
+  res.send("DELETE Request Called") 
+});
+
+  app.delete('/api/notes', (req, res) => { 
+  res.send("DELETE Request Called") 
+});
+  
+  
+//   app.delete("/api/notes", function(req, res) {
+//     // Empty out the arrays of data
+//     store.length = 0;
+    
+//     res.json({ ok: true });
+//   });
 };
