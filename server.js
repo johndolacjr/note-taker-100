@@ -5,13 +5,9 @@ const util = require("util");
 const app = express();
 const path = require("path");
 const { v1: uuidv1 } = require('uuid');
-// const readFileAsync = util.promisify(fs.readfile); 
-// const writeFileAsync = util.promisify(fs.writefile);
-// const uuidv1 = require("uuid/v1");
 
 // Sets an initial port. We"ll use this later in our listener
 const PORT = process.env.PORT || 8080;
-
 
 // Middleware used to connect the server and user info. 
 app.use(express.urlencoded({ extended: true }));
@@ -36,7 +32,6 @@ app.get("/api/notes", function(req, res) {
     return res.json(allNotes);
   });
 });
-    
 
 // ROUTER
 // The below points our server to a series of "route" files.
