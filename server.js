@@ -5,6 +5,8 @@ const util = require("util");
 const app = express();
 const path = require("path");
 const { v1: uuidv1 } = require('uuid');
+const Store = require('./db/store.js');
+
 
 // Sets an initial port. We"ll use this later in our listener
 const PORT = process.env.PORT || 8080;
@@ -23,7 +25,7 @@ app.get("/notes", function(req, res) {
     res.sendFile(path.join(__dirname, "public/notes.html"));
 });
 
-app.get("/api/notes", function(req, res) {
+app.get("/api/notes", function (req, res) {
     fs.readfile("/db/db.json", function (err, data) {
     if (err) {
         throw err;
@@ -32,6 +34,7 @@ app.get("/api/notes", function(req, res) {
     return res.json(allNotes);
   });
 });
+
 
 // ROUTER
 // The below points our server to a series of "route" files.
