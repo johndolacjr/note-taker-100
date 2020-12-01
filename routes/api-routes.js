@@ -1,33 +1,42 @@
-var dbData = require("../db/db.json");
-var storeData = require("../db/store.js");
+const Store = require('../db/store.js');
 
 //Routes
 
 module.exports = function(app) {
   
-app.get("/api/index", function(req, res) {
-    res.json(db);
+app.get("/api/notes", function(req, res) {
+    Store.getNotes().then(data => {
+// send data to the front end
+        res.json(data)
+// Catch errors 
+    }).catch(err => {
+// sends the error to the front end
+        res.status(500).json(err)
+    });
   });
-
-  app.get("/api/notes", function(req, res) {
-    res.json(store);
-  });
-
- 
-app.post('/api/index', (req, res) => { 
-  res.send("POST Request Called") 
-}); 
 
 app.post('/api/notes', (req, res) => { 
-  res.send("POST Request Called") 
+// req.body is the data (notefrom the front end) passing through to the back end
+  Store.addNote(req.body).then(data => {
+// send data to the front end
+        res.json(data)
+// Catch errors 
+    }).catch(err => {
+// sends the error to the front end
+        res.status(500).json(err)
+    });
 }); 
 
-  app.delete('/api/index', (req, res) => { 
-  res.send("DELETE Request Called") 
-});
-
-  app.delete('/api/notes', (req, res) => { 
-  res.send("DELETE Request Called") 
+app.delete('/api/notes/:id', (req, res) => { 
+// when requesting from the url ((backend)params = (frontend) url) on an AJAX call
+  Store.deleteNote(req.params.id).then(data => {
+// send a true value to the front end
+        res.json(true)
+// Catch errors 
+    }).catch(err => {
+// sends the error to the front end
+        res.status(500).json(err)
+    });
 });
   
 };

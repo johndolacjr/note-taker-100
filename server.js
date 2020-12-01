@@ -4,8 +4,6 @@ const fs = require("fs");
 const util = require("util");
 const app = express();
 const path = require("path");
-const { v1: uuidv1 } = require('uuid');
-const Store = require('./db/store.js');
 
 
 // Sets an initial port. We"ll use this later in our listener
@@ -14,27 +12,7 @@ const PORT = process.env.PORT || 8080;
 // Middleware used to connect the server and user info. 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join("public")));
-
-
-app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "public/index.html"));
-});
-
-app.get("/notes", function(req, res) {
-    res.sendFile(path.join(__dirname, "public/notes.html"));
-});
-
-app.get("/api/notes", function (req, res) {
-    fs.readfile("/db/db.json", function (err, data) {
-    if (err) {
-        throw err;
-    }
-    let allNotes = JSON.parse(data);
-    return res.json(allNotes);
-  });
-});
-
+app.use(express.static ("public"));
 
 // ROUTER
 // The below points our server to a series of "route" files.

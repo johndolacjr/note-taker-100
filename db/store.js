@@ -3,12 +3,12 @@ const fs = require("fs");
 const util = require("util");
 
 // returns a unique ID for our returns
-    // const uuidv1 = require("uuid/v1");
+// const uuidv1 = require("uuid/v1");
 const { v1: uuidv1 } = require('uuid');
 
 // creates a promisified version of fs.readfile and writefile
-// const readFileAsync = util.promisify(fs.readfile); 
-// const writeFileAsync = util.promisify(fs.writefile);
+const readFileAsync = util.promisify(fs.readFile);
+const writeFileAsync = util.promisify(fs.writeFile);
 
 class Store {
     read() {
